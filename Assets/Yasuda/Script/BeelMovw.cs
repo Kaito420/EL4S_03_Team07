@@ -10,13 +10,16 @@ public class BeelMovw : MonoBehaviour
 
 
     private float nowTime = 0;
-
+    bool a = false;
     // Update is called once per frame
     void Update()
     {
-        nowTime += 1.0f / 60.0f;
-        if(nowTime >= beelTime)
+
+        nowTime += Time.deltaTime;
+        //Debug.Log(nowTime);
+        if(nowTime >= beelTime && a==false)
         {
+            a = true;
             IrisTransition.Instance.StartIrisOut();
         }
     }
