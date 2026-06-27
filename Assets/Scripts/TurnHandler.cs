@@ -142,7 +142,6 @@ public class TurnHandler : MonoBehaviour
                 _keyStateManager.UpdateKey(_currentPlayer, targetKey, true);
                 Debug.Log($"[プレイヤー {_currentPlayer._id}] が指示キー {targetKey} を押しました！");
 
-                ScoreManager.Instance.AddScore(1);
                 TransitionToPlayerChange();
                 ScoreManager.Instance.AddScore(1); // スコアを加算
                 StartPlayerMove();
