@@ -80,6 +80,29 @@ public class KeyboardViewManager : MonoBehaviour
         }
     }
 
+    //引数のキーコードに対応するテキストを消すメソッド
+    public void ClearKeyboardView(KeyCode key)
+    {
+        // 左プレイヤーのキー表示リストを検索して、対応するテキストを消す
+        foreach (Text text in m_leftPlayerKeyList)
+        {
+            if (text.text == key.ToString())
+            {
+                text.text = string.Empty;
+                return;
+            }
+        }
+        // 右プレイヤーのキー表示リストを検索して、対応するテキストを消す
+        foreach (Text text in m_rightPlayerKeyList)
+        {
+            if (text.text == key.ToString())
+            {
+                text.text = string.Empty;
+                return;
+            }
+        }
+    }
+
     //指定した場所にバツマークを表示するメソッド
     public void ShowCrossMark(int index, PlayerType playerType)
     {

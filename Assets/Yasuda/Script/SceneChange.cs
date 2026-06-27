@@ -10,6 +10,9 @@ public class SceneChange : MonoBehaviour
     [SerializeField]
     private Object sceneAsset; // Sceneを直接ドラッグ
     private string sceneName;
+
+   
+
     private void Awake()
     {
 #if UNITY_EDITOR
@@ -20,6 +23,14 @@ public class SceneChange : MonoBehaviour
 #endif
     }
 
+    private void Start()
+    {
+        //シーン開始時にIrisInを動かす
+        IrisTransition.Instance.StartIrisIn();
+    }
+
+
+  
 
     public void SceneChangeManager() // インスペクターで指定
     {
