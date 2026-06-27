@@ -10,8 +10,16 @@ public class Test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            IrisTransition.Instance.StartIrisOut();
-            Debug.Log("A");
+            int a = IrisTransition.Instance.GetMode();
+            //Debug.Log(a);
+
+            if (a==2)
+            {
+                IrisTransition.Instance.StartIrisOut();
+                //Debug.Log("アイリス開始");
+            }
+           
+           
         }
 
     }

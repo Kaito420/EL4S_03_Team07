@@ -122,6 +122,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &186458075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 186458076}
+  - component: {fileID: 186458077}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &186458076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186458075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &186458077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186458075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2e2c370aac66e4997c3f086059ebc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &365051290
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +177,7 @@ GameObject:
   - component: {fileID: 365051292}
   - component: {fileID: 365051291}
   - component: {fileID: 365051293}
+  - component: {fileID: 365051294}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -178,6 +223,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e791ef18f70fcd8468f169aa260392a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &365051294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365051290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3325f405b1e4a6341b730626a95a4ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1176572620
@@ -792,3 +849,4 @@ SceneRoots:
   - {fileID: 1786885553}
   - {fileID: 1988146261}
   - {fileID: 365051292}
+  - {fileID: 186458076}
