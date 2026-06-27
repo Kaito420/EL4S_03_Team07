@@ -12,6 +12,19 @@ public class Player
 
 public class TurnHandler : MonoBehaviour
 {
+    enum AnimState
+    {
+        Idle,
+        Walk,
+        Dance,
+    };
+
+    [SerializeField] float moveDistance = 1.0f;
+    [SerializeField] float moveSpeed = 0.02f;
+    [SerializeField] Animator animator = null;
+    float _targetPos = 0.0f;
+    bool _isMoving = false;
+    AnimState _animState = AnimState.Idle;
 
     [SerializeField]
     private SceneChange sceneChange;
@@ -36,6 +49,8 @@ public class TurnHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //_animator = GetComponent<Animator>();
+
         _players[0] = new Player { _id = 1 };
         _players[1] = new Player { _id = 2 };
 
@@ -77,6 +92,8 @@ public class TurnHandler : MonoBehaviour
                 // プレイヤー交代ウェイト中
                 break;
         }
+
+        UpdatePlayerMove();
     }
 
     // 次のターン（キー追加、またはキー解放）をセットアップする
@@ -124,6 +141,7 @@ public class TurnHandler : MonoBehaviour
                 
                 TransitionToPlayerChange();
 
+                StartPlayerMove();
                 // 押せ!!テキストを非表示にする
                 _keyboardViewManager.HidePressText(targetKey);
                 return;
@@ -168,6 +186,41 @@ public class TurnHandler : MonoBehaviour
         Invoke("SwapPlayer", 1.0f);
     }
 
+    void StartPlayerMove()
+    {
+        _targetPos -= moveDistance;
+        _isMoving = true;
+        if(animator)
+        {
+            if ((int)(Mathf.Abs(_targetPos)) % 3 == 0)
+            {
+                _animState = AnimState.Dance;
+            }
+            else
+            {
+                _animState = AnimState.Walk;
+            }
+        }
+    }
+    void UpdatePlayerMove()
+    {
+        animator.SetBool("IsWalk", _animState == AnimState.Walk);
+        animator.SetBool("Dance", _animState == AnimState.Dance);
+
+        if (!_isMoving) return;
+
+       // transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(_targetPos, 0, 0), moveSpeed);
+        transform.localPosition = transform.localPosition + new Vector3(0, 0, -moveSpeed) * Time.deltaTime;
+        if (_targetPos >= transform.localPosition.z)
+        {
+            _isMoving = false;
+            if (animator)
+            {
+                _animState = AnimState.Idle;
+            }
+        }
+    }
+        
     // 同じプレイヤーで連続してキーを押すフェーズへの移行を予約する
     void TransitionToSamePlayerPress()
     {
