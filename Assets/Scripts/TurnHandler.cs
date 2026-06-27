@@ -12,12 +12,19 @@ public class Player
 
 public class TurnHandler : MonoBehaviour
 {
+    enum AnimState
+    {
+        Idle,
+        Walk,
+        Dance,
+    };
 
     [SerializeField] float moveDistance = 1.0f;
     [SerializeField] float moveSpeed = 0.02f;
+    [SerializeField] Animator animator = null;
     float _targetPos = 0.0f;
     bool _isMoving = false;
-    Animator _animator;
+    AnimState _animState = AnimState.Idle;
 
     [SerializeField]
     private SceneChange sceneChange;
@@ -42,7 +49,7 @@ public class TurnHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _animator = GetComponent<Animator>();
+        //_animator = GetComponent<Animator>();
 
         _players[0] = new Player { _id = 1 };
         _players[1] = new Player { _id = 2 };
@@ -181,32 +188,35 @@ public class TurnHandler : MonoBehaviour
 
     void StartPlayerMove()
     {
-        _targetPos += moveDistance;
+        _targetPos -= moveDistance;
         _isMoving = true;
-        if(_animator)
+        if(animator)
         {
-            if ((int)_targetPos % 3 == 0)
+            if ((int)(Mathf.Abs(_targetPos)) % 3 == 0)
             {
-                _animator.SetBool("Dance", true);
+                _animState = AnimState.Dance;
             }
             else
             {
-                _animator.SetBool("IsWalk", true);
+                _animState = AnimState.Walk;
             }
         }
     }
     void UpdatePlayerMove()
     {
+        animator.SetBool("IsWalk", _animState == AnimState.Walk);
+        animator.SetBool("Dance", _animState == AnimState.Dance);
+
         if (!_isMoving) return;
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(_targetPos, 0, 0), moveSpeed);
-        if(_targetPos <= transform.localPosition.x)
+       // transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(_targetPos, 0, 0), moveSpeed);
+        transform.localPosition = transform.localPosition + new Vector3(0, 0, -moveSpeed) * Time.deltaTime;
+        if (_targetPos >= transform.localPosition.z)
         {
             _isMoving = false;
-            if (_animator)
+            if (animator)
             {
-                _animator.SetBool("IsWalk", false);
-                _animator.SetBool("Dance", false);
+                _animState = AnimState.Idle;
             }
         }
     }
