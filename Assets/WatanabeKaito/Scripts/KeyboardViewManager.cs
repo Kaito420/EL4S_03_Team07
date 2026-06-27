@@ -43,6 +43,11 @@ public class KeyboardViewManager : MonoBehaviour
         // ‹ó‚¢‚Ä‚¢‚éêŠ‚ğ’T‚·
         for (int i = 0; i < count; i++)
         {
+            if(m_leftPlayerKeyList[i].text == key.ToString() || m_rightPlayerKeyList[i].text == key.ToString())
+            {
+                // ‚·‚Å‚É•\¦‚³‚ê‚Ä‚¢‚éê‡‚Í‰½‚à‚µ‚È‚¢
+                return;
+            }
             // ¶‘¤‚ª‹ó‚¢‚Ä‚¢‚é
             if (string.IsNullOrEmpty(m_leftPlayerKeyList[i].text))
             {
