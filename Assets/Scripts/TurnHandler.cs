@@ -183,15 +183,31 @@ public class TurnHandler : MonoBehaviour
     {
         _targetPos += moveDistance;
         _isMoving = true;
+        if(_animator)
+        {
+            if ((int)_targetPos % 3 == 0)
+            {
+                _animator.SetBool("Dance", true);
+            }
+            else
+            {
+                _animator.SetBool("IsWalk", true);
+            }
+        }
     }
     void UpdatePlayerMove()
     {
         if (!_isMoving) return;
 
-        transform.position = Vector3.Lerp(transform.position, new Vector3(_targetPos, 0, 0), moveSpeed);
-        if(_targetPos <= transform.position.x)
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(_targetPos, 0, 0), moveSpeed);
+        if(_targetPos <= transform.localPosition.x)
         {
             _isMoving = false;
+            if (_animator)
+            {
+                _animator.SetBool("IsWalk", false);
+                _animator.SetBool("Dance", false);
+            }
         }
     }
         
