@@ -1,0 +1,87 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class KeyboardViewManager : MonoBehaviour
+{
+    [Header("左プレイヤーのキー表示リスト")]
+    [SerializeField] private List<Text> m_leftPlayerKeyList = new List<Text>();
+
+    [Header("右プレイヤーのキー表示リスト")]
+    [SerializeField] private List<Text> m_rightPlayerKeyList = new List<Text>();
+
+    public enum PlayerType  // プレイヤーの種類を表す列挙型
+    {
+        Left,
+        Right
+    }
+
+    private PlayerType m_currentPlayerType = PlayerType.Left;   // 現在のプレイヤーの種類を保持する変数
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            SetKeyboardView(KeyCode.A);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            SetKeyboardView(KeyCode.B);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SetKeyboardView(KeyCode.C);
+        }
+    }
+
+    // キーボードの指示UIをセットするメソッド
+    public void SetKeyboardView(KeyCode key)
+    {
+        //表示の最大数を取得
+        int count = Mathf.Min(m_leftPlayerKeyList.Count,m_rightPlayerKeyList.Count);
+
+        // 空いている場所を探す
+        for (int i = 0; i < count; i++)
+        {
+            // 左側が空いている
+            if (string.IsNullOrEmpty(m_leftPlayerKeyList[i].text))
+            {
+                m_leftPlayerKeyList[i].text = key.ToString();
+                m_currentPlayerType = PlayerType.Left;
+                return;
+            }
+
+            // 右側が空いている
+            if (string.IsNullOrEmpty(m_rightPlayerKeyList[i].text))
+            {
+                m_rightPlayerKeyList[i].text = key.ToString();
+                m_currentPlayerType = PlayerType.Right;
+                return;
+            }
+        }
+
+        // 空いている場所がない場合はランダムに上書きする
+        int randomIndex = Random.Range(0, count);
+
+        if (m_currentPlayerType == PlayerType.Left)
+        {
+            m_rightPlayerKeyList[randomIndex].text = key.ToString();
+            m_currentPlayerType = PlayerType.Right;
+        }
+        else
+        {
+            m_leftPlayerKeyList[randomIndex].text = key.ToString();
+            m_currentPlayerType = PlayerType.Left;
+        }
+    }
+}
