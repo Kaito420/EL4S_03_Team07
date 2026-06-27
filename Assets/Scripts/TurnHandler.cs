@@ -139,6 +139,7 @@ public class TurnHandler : MonoBehaviour
             _currentPlayer._keyToRelease = KeyCode.None; // リセット
             
             TransitionToPlayerChange();
+            _keyboardViewManager.ClearKeyboardView(targetKey);
         }
     }
 
