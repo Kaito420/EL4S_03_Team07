@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/\u30B7\u30FC\u30F3\u9077\u79FB/Result.unity"
     guid: 82df0c12fcfb3704ca8b4b97c6dd0ed4
+  - enabled: 1
+    path: "Assets/Scenes/\u30B7\u30FC\u30F3\u9077\u79FB/Beel.unity"
+    guid: 2fc2386a0a06e8f4389473d19ffad8f1
   m_configObjects: {}
