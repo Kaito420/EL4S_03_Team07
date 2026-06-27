@@ -12,6 +12,10 @@ public class Player
 
 public class TurnHandler : MonoBehaviour
 {
+
+    [SerializeField]
+    private SceneChange sceneChange;
+
     Player[] _players = new Player[2];
     Player _currentPlayer = null;
 
@@ -150,10 +154,10 @@ public class TurnHandler : MonoBehaviour
             _currentPlayer._keyStates.Remove(targetKey);
             _currentPlayer._keyToRelease = KeyCode.None; // リセット
             
-            TransitionToPlayerChange();
             _keyboardViewManager.ClearKeyboardView(targetKey);
+            // プレイヤーは交代せず、同じプレイヤーに続けて新しいキーを押すよう指示する
+            TransitionToSamePlayerPress();
 
-           
         }
     }
 
@@ -162,6 +166,23 @@ public class TurnHandler : MonoBehaviour
     {
         _currentState = State.WaitForPlayerChange;
         Invoke("SwapPlayer", 1.0f);
+    }
+
+    // 同じプレイヤーで連続してキーを押すフェーズへの移行を予約する
+    void TransitionToSamePlayerPress()
+    {
+        _currentState = State.WaitForPlayerChange;
+        Invoke("SetupSamePlayerPress", 1.0f);
+    }
+
+    // 同じプレイヤーのまま、新キーを抽選して押し待ちフェーズに移行する
+    void SetupSamePlayerPress()
+    {
+        Player opponent = (_currentPlayer == _players[0]) ? _players[1] : _players[0];
+
+        // 交代せず、同一プレイヤーに新しいキーを割り当てる
+        _keyStateManager.SelectRandomKey(_currentPlayer, opponent);
+        _currentState = State.WaitForKeyPress;
     }
 
     public void SwapPlayer()
@@ -197,9 +218,16 @@ public class TurnHandler : MonoBehaviour
                 {
                     Debug.LogError($"[プレイヤー {player._id}] がキー {key} を離しました！ ゲームオーバー！");
                     _currentState = State.None;
+                    Invoke("GameOver", 1.0f);
                     return;
                 }
             }
         }
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("ゲームオーバー！シーン遷移します。");
+        sceneChange.SceneChangeManager();
     }
 }
