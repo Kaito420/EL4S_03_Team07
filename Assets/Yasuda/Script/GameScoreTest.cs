@@ -8,7 +8,7 @@ public class GameScoreTest : MonoBehaviour
     void Start()
     {
         ScoreManager.Instance.ResetScore();
-        //ScoreManager.Instance.SetScore(10);
+        ScoreManager.Instance.SetScore(99);
     }
 
     // Update is called once per frame
