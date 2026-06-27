@@ -277,6 +277,7 @@ public class TurnHandler : MonoBehaviour
                 // すでに押されている状態（true）なのに、実際の入力が離れていたら
                 if (player._keyStates[key] && !Input.GetKey(key))
                 {
+                    _keyboardViewManager.ShowCrossMark(key);
                     //Debug.LogError($"[プレイヤー {player._id}] がキー {key} を離しました！ ゲームオーバー！");
                     _currentState = State.None;
                     Invoke("GameOver", 1.0f);
