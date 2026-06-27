@@ -232,19 +232,30 @@ public class KeyboardViewManager : MonoBehaviour
 
 
     //指定した場所にバツマークを表示するメソッド
-    public void ShowCrossMark(int index, PlayerType playerType)
+    public void ShowCrossMark(KeyCode key)
     {
-        if (playerType == PlayerType.Left && index >= 0 && index < m_leftPlayerKeyList.Count)
+        // 左プレイヤーのキー表示リストを検索して、対応する場所にバツマークを表示
+        for (int i = 0; i < m_leftPlayerKeyList.Count; i++)
         {
-            // 左プレイヤーの指定した場所にバツマークを表示
-            GameObject cross = Instantiate(m_crossImage.gameObject, m_leftPlayerKeyList[index].transform);
-            cross.transform.localPosition = Vector3.zero; // バツマークをテキストの中央に配置
+            if (m_leftPlayerKeyList[i].text == key.ToString())
+            {
+                //バツマークを生成
+                GameObject cross = Instantiate(m_crossImage.gameObject, m_leftPlayerKeyList[i].transform);
+                cross.transform.localPosition = Vector3.zero;
+                return;
+            }
         }
-        else if (playerType == PlayerType.Right && index >= 0 && index < m_rightPlayerKeyList.Count)
+        // 右プレイヤーのキー表示リストを検索して、対応する場所にバツマークを表示
+        for (int i = 0; i < m_rightPlayerKeyList.Count; i++)
         {
-            // 右プレイヤーの指定した場所にバツマークを表示
-            GameObject cross = Instantiate(m_crossImage.gameObject, m_rightPlayerKeyList[index].transform);
-            cross.transform.localPosition = Vector3.zero; // バツマークをテキストの中央に配置
+            if (m_rightPlayerKeyList[i].text == key.ToString())
+            {
+                //バツマークを生成
+                GameObject cross = Instantiate(m_crossImage.gameObject, m_rightPlayerKeyList[i].transform);
+                cross.transform.localPosition = Vector3.zero;
+                return;
+            }
         }
     }
 }
+
