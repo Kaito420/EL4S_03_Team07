@@ -141,7 +141,8 @@ public class TurnHandler : MonoBehaviour
                 // 正しく押されたので状態を true (押されている) に更新
                 _keyStateManager.UpdateKey(_currentPlayer, targetKey, true);
                 Debug.Log($"[プレイヤー {_currentPlayer._id}] が指示キー {targetKey} を押しました！");
-                
+
+                ScoreManager.Instance.AddScore(1);
                 TransitionToPlayerChange();
 
                 StartPlayerMove();
@@ -169,6 +170,7 @@ public class TurnHandler : MonoBehaviour
         {
             Debug.Log($"[プレイヤー {_currentPlayer._id}] が指示通りキー {targetKey} を離しました！");
 
+            ScoreManager.Instance.AddScore(1);
             //離せ!!テキストを非表示にする
             _keyboardViewManager.HideReleaseText(targetKey);
 
@@ -275,7 +277,7 @@ public class TurnHandler : MonoBehaviour
                 // すでに押されている状態（true）なのに、実際の入力が離れていたら
                 if (player._keyStates[key] && !Input.GetKey(key))
                 {
-                    Debug.LogError($"[プレイヤー {player._id}] がキー {key} を離しました！ ゲームオーバー！");
+                    //Debug.LogError($"[プレイヤー {player._id}] がキー {key} を離しました！ ゲームオーバー！");
                     _currentState = State.None;
                     Invoke("GameOver", 1.0f);
                     return;
