@@ -50,7 +50,13 @@ MonoBehaviour:
   SESource: {fileID: 1597661594446057714}
   BGMGroup: {fileID: 6003777990331305242, guid: 28ca1d298ec1d0e40981a5856a4889d3, type: 2}
   SEGroup: {fileID: -1179566111254296352, guid: 28ca1d298ec1d0e40981a5856a4889d3, type: 2}
-  BGMList: []
+  BGMList:
+  - name: TitleBGM
+    clip: {fileID: 8300000, guid: 1d11471f84cd1864fa656e6214d4f6bf, type: 3}
+  - name: GameBGM
+    clip: {fileID: 8300000, guid: dbb35c3d8a2895c4689332fd481ae2c1, type: 3}
+  - name: ResultBGM
+    clip: {fileID: 8300000, guid: 0b6a54a2e5dc1564aaa4fd30b751bc11, type: 3}
   SEList:
   - name: JumpSE
     clip: {fileID: 8300000, guid: c5fb1a280bfedb8429b286ccbda58cb2, type: 3}

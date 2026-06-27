@@ -13,7 +13,7 @@ public class AudioDebug : MonoBehaviour
         AudioManager.instance.PlaySE("ClickSE");
 
         // ステージが始まったときにBGMを鳴らす
-        AudioManager.instance.PlayBGM("Stage1BGM");
+        AudioManager.instance.PlayBGM("TitleBGM");
     }
 
     // Update is called once per frame
