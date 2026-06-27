@@ -28,20 +28,7 @@ public class KeyboardViewManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            SetKeyboardView(KeyCode.A);
-        }
 
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SetKeyboardView(KeyCode.B);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            SetKeyboardView(KeyCode.C);
-        }
     }
 
     // キーボードの指示UIをセットするメソッド
