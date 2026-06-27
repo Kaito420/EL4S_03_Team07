@@ -11,7 +11,7 @@ public class Test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             int a = IrisTransition.Instance.GetMode();
-            //Debug.Log(a);
+            Debug.Log(a);
 
             if (a==2)
             {
