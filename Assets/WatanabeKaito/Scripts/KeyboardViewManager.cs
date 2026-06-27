@@ -14,6 +14,18 @@ public class KeyboardViewManager : MonoBehaviour
     [Header("バツマークのプレハブ")]
     [SerializeField] private Image m_crossImage;
 
+    [Header("左の押せ!!テキストオブジェクトリスト")]
+    [SerializeField] private List<GameObject> m_leftPressTextObjects = new List<GameObject>();
+
+    [Header("左の離せ!!テキストオブジェクトリスト")]
+    [SerializeField] private List<GameObject> m_leftReleaseTextObjects = new List<GameObject>();
+
+    [Header("右の押せ!!テキストオブジェクトリスト")]
+    [SerializeField] private List<GameObject> m_rightPressTextObjects = new List<GameObject>();
+
+    [Header("右の離せ!!テキストオブジェクトリスト")]
+    [SerializeField] private List<GameObject> m_rightReleaseTextObjects = new List<GameObject>();
+
     public enum PlayerType  // プレイヤーの種類を表す列挙型
     {
         Left,
@@ -102,6 +114,122 @@ public class KeyboardViewManager : MonoBehaviour
             }
         }
     }
+
+    //指定したキーコードに対応するテキストの「押せ」テキスト表示
+    public void ShowPressText(KeyCode key)
+    {
+        // 左プレイヤーのキー表示リストを検索して、対応する「押せ」テキストを表示
+        for (int i = 0; i < m_leftPlayerKeyList.Count; i++)
+        {
+            if (m_leftPlayerKeyList[i].text == key.ToString())
+            {
+                //キーテキストの色を黒色に変更
+                m_leftPlayerKeyList[i].color = Color.black;
+
+                m_leftPressTextObjects[i].SetActive(true);
+                return;
+            }
+        }
+        // 右プレイヤーのキー表示リストを検索して、対応する「押せ」テキストを表示
+        for (int i = 0; i < m_rightPlayerKeyList.Count; i++)
+        {
+            if (m_rightPlayerKeyList[i].text == key.ToString())
+            {
+                //キーテキストの色を黒色に変更
+                m_rightPlayerKeyList[i].color = Color.black;
+
+                m_rightPressTextObjects[i].SetActive(true);
+                return;
+            }
+        }
+    }
+
+    //指定したキーコードに対応するテキストの「押せ」テキスト非表示
+    public void HidePressText(KeyCode key)
+    {
+        // 左プレイヤーのキー表示リストを検索して、対応する「押せ」テキストを非表示
+        for (int i = 0; i < m_leftPlayerKeyList.Count; i++)
+        {
+            if (m_leftPlayerKeyList[i].text == key.ToString())
+            {
+                //キーテキストの色を白色に変更
+                m_leftPlayerKeyList[i].color = Color.white;
+
+                m_leftPressTextObjects[i].SetActive(false);
+                return;
+            }
+        }
+        // 右プレイヤーのキー表示リストを検索して、対応する「押せ」テキストを非表示
+        for (int i = 0; i < m_rightPlayerKeyList.Count; i++)
+        {
+            if (m_rightPlayerKeyList[i].text == key.ToString())
+            {
+                //キーテキストの色を白色に変更
+                m_rightPlayerKeyList[i].color = Color.white;
+
+                m_rightPressTextObjects[i].SetActive(false);
+                return;
+            }
+        }
+    }
+
+    //指定したキーコードに対応するテキストの「離せ」テキスト表示
+    public void ShowReleaseText(KeyCode key)
+    {
+        // 左プレイヤーのキー表示リストを検索して、対応する「離せ」テキストを表示
+        for (int i = 0; i < m_leftPlayerKeyList.Count; i++)
+        {
+            if (m_leftPlayerKeyList[i].text == key.ToString())
+            {
+                //キーテキストの色を赤色に変更
+                m_leftPlayerKeyList[i].color = Color.red;
+                m_leftReleaseTextObjects[i].SetActive(true);
+                return;
+            }
+        }
+        // 右プレイヤーのキー表示リストを検索して、対応する「離せ」テキストを表示
+        for (int i = 0; i < m_rightPlayerKeyList.Count; i++)
+        {
+            if (m_rightPlayerKeyList[i].text == key.ToString())
+            {
+                //キーテキストの色を赤色に変更
+                m_rightPlayerKeyList[i].color = Color.red;
+                m_rightReleaseTextObjects[i].SetActive(true);
+                return;
+            }
+        }
+    }
+
+    //指定したキーコードに対応するテキストの「離せ」テキスト非表示
+    public void HideReleaseText(KeyCode key)
+    {
+        // 左プレイヤーのキー表示リストを検索して、対応する「離せ」テキストを非表示
+        for (int i = 0; i < m_leftPlayerKeyList.Count; i++)
+        {
+            if (m_leftPlayerKeyList[i].text == key.ToString())
+            {
+                //キーテキストの色を白色に変更
+                m_leftPlayerKeyList[i].color = Color.white;
+
+                m_leftReleaseTextObjects[i].SetActive(false);
+                return;
+            }
+        }
+        // 右プレイヤーのキー表示リストを検索して、対応する「離せ」テキストを非表示
+        for (int i = 0; i < m_rightPlayerKeyList.Count; i++)
+        {
+            if (m_rightPlayerKeyList[i].text == key.ToString())
+            {
+                //キーテキストの色を白色に変更
+                m_rightPlayerKeyList[i].color = Color.white;
+
+                m_rightReleaseTextObjects[i].SetActive(false);
+                return;
+            }
+        }
+    }
+
+
 
     //指定した場所にバツマークを表示するメソッド
     public void ShowCrossMark(int index, PlayerType playerType)

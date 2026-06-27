@@ -19,6 +19,9 @@ public class TurnHandler : MonoBehaviour
     bool _isMoving = false;
     Animator _animator;
 
+    [SerializeField]
+    private SceneChange sceneChange;
+
     Player[] _players = new Player[2];
     Player _currentPlayer = null;
 
@@ -114,6 +117,9 @@ public class TurnHandler : MonoBehaviour
         KeyCode targetKey = _currentPlayer._keysToPress[_currentPlayer._keysToPress.Count - 1];
         _keyboardViewManager.SetKeyboardView(targetKey);
 
+        //押せ!!テキストを表示する
+        _keyboardViewManager.ShowPressText(targetKey);
+
         // InputService からこのフレームで新規に押されたキーを取得
         int count;
         KeyCode[] pushedKeys = InputService.GetPushKeys(out count);
@@ -129,7 +135,8 @@ public class TurnHandler : MonoBehaviour
                 TransitionToPlayerChange();
 
                 StartPlayerMove();
-
+                // 押せ!!テキストを非表示にする
+                _keyboardViewManager.HidePressText(targetKey);
                 return;
             }
         }
@@ -142,18 +149,26 @@ public class TurnHandler : MonoBehaviour
 
         KeyCode targetKey = _currentPlayer._keyToRelease;
 
+        //離せ!!テキストを表示する
+        _keyboardViewManager.ShowReleaseText(targetKey);
+
         // 指定キーが離されたか (Input.GetKey が false になったか)
         if (!Input.GetKey(targetKey))
         {
             Debug.Log($"[プレイヤー {_currentPlayer._id}] が指示通りキー {targetKey} を離しました！");
-            
+
+            //離せ!!テキストを非表示にする
+            _keyboardViewManager.HideReleaseText(targetKey);
+
             // プレイヤーの押下リスト・状態から削除
             _currentPlayer._keysToPress.Remove(targetKey);
             _currentPlayer._keyStates.Remove(targetKey);
             _currentPlayer._keyToRelease = KeyCode.None; // リセット
             
-            TransitionToPlayerChange();
             _keyboardViewManager.ClearKeyboardView(targetKey);
+            // プレイヤーは交代せず、同じプレイヤーに続けて新しいキーを押すよう指示する
+            TransitionToSamePlayerPress();
+
         }
     }
 
@@ -178,6 +193,23 @@ public class TurnHandler : MonoBehaviour
         {
             _isMoving = false;
         }
+    }
+        
+    // 同じプレイヤーで連続してキーを押すフェーズへの移行を予約する
+    void TransitionToSamePlayerPress()
+    {
+        _currentState = State.WaitForPlayerChange;
+        Invoke("SetupSamePlayerPress", 1.0f);
+    }
+
+    // 同じプレイヤーのまま、新キーを抽選して押し待ちフェーズに移行する
+    void SetupSamePlayerPress()
+    {
+        Player opponent = (_currentPlayer == _players[0]) ? _players[1] : _players[0];
+
+        // 交代せず、同一プレイヤーに新しいキーを割り当てる
+        _keyStateManager.SelectRandomKey(_currentPlayer, opponent);
+        _currentState = State.WaitForKeyPress;
     }
 
     public void SwapPlayer()
@@ -213,9 +245,16 @@ public class TurnHandler : MonoBehaviour
                 {
                     Debug.LogError($"[プレイヤー {player._id}] がキー {key} を離しました！ ゲームオーバー！");
                     _currentState = State.None;
+                    Invoke("GameOver", 1.0f);
                     return;
                 }
             }
         }
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("ゲームオーバー！シーン遷移します。");
+        sceneChange.SceneChangeManager();
     }
 }
