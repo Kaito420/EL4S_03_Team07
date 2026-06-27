@@ -25,9 +25,12 @@ public class SceneChange : MonoBehaviour
 
     private void Start()
     {
-        //シーン開始時にIrisInを動かす
-        IrisTransition.Instance.StartIrisIn();
-        Debug.Log("イン");
+       
+            //シーン開始時にIrisInを動かす
+            IrisTransition.Instance.StartIrisIn();
+            Debug.Log("イン");
+       
+       
     }
 
 

@@ -13,7 +13,11 @@ public class ResultScore : MonoBehaviour
     {
         resultScoreText = GetComponent<Text>();
         resultScore = ScoreManager.Instance.Score;
-        resultScoreText.text = string.Format("{0:D2}", resultScore);
+        if(resultScore >=99)
+        {
+            resultScore = 99;
+        }
+        resultScoreText.text = string.Format("{0:D2}m", resultScore);
     }
 
    
