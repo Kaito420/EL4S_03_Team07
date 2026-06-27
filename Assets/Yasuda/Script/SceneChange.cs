@@ -3,15 +3,34 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class SceneChange : MonoBehaviour
 {
 
     [SerializeField]
-    private SceneAsset sceneName;
-
-
-    public void ChangeScene()
+    private Object sceneAsset; // Sceneを直接ドラッグ
+    private string sceneName;
+    private void Awake()
     {
-        SceneManager.LoadScene(sceneName.name);
+#if UNITY_EDITOR
+        if (sceneAsset != null)
+        {
+            sceneName = sceneAsset.name;
+        }
+#endif
+    }
+
+
+    public void SceneChangeManager() // インスペクターで指定
+    {
+        if (!string.IsNullOrEmpty(sceneName))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.LogWarning("シーンが設定されていません");
+        }
+
     }
 }
