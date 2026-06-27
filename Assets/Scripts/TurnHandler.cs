@@ -12,6 +12,13 @@ public class Player
 
 public class TurnHandler : MonoBehaviour
 {
+
+    [SerializeField] float moveDistance = 1.0f;
+    [SerializeField] float moveSpeed = 0.02f;
+    float _targetPos = 0.0f;
+    bool _isMoving = false;
+    Animator _animator;
+
     Player[] _players = new Player[2];
     Player _currentPlayer = null;
 
@@ -32,6 +39,8 @@ public class TurnHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<Animator>();
+
         _players[0] = new Player { _id = 1 };
         _players[1] = new Player { _id = 2 };
 
@@ -73,6 +82,8 @@ public class TurnHandler : MonoBehaviour
                 // プレイヤー交代ウェイト中
                 break;
         }
+
+        UpdatePlayerMove();
     }
 
     // 次のターン（キー追加、またはキー解放）をセットアップする
@@ -116,6 +127,9 @@ public class TurnHandler : MonoBehaviour
                 Debug.Log($"[プレイヤー {_currentPlayer._id}] が指示キー {targetKey} を押しました！");
                 
                 TransitionToPlayerChange();
+
+                StartPlayerMove();
+
                 return;
             }
         }
@@ -148,6 +162,22 @@ public class TurnHandler : MonoBehaviour
     {
         _currentState = State.WaitForPlayerChange;
         Invoke("SwapPlayer", 1.0f);
+    }
+
+    void StartPlayerMove()
+    {
+        _targetPos += moveDistance;
+        _isMoving = true;
+    }
+    void UpdatePlayerMove()
+    {
+        if (!_isMoving) return;
+
+        transform.position = Vector3.Lerp(transform.position, new Vector3(_targetPos, 0, 0), moveSpeed);
+        if(_targetPos <= transform.position.x)
+        {
+            _isMoving = false;
+        }
     }
 
     public void SwapPlayer()
