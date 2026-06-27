@@ -60,6 +60,28 @@ MonoBehaviour:
   SEList:
   - name: JumpSE
     clip: {fileID: 8300000, guid: c5fb1a280bfedb8429b286ccbda58cb2, type: 3}
+  - name: keyup
+    clip: {fileID: 8300000, guid: c5fb1a280bfedb8429b286ccbda58cb2, type: 3}
+  - name: keydown
+    clip: {fileID: 8300000, guid: 0edbe439edd694d4ebacbdb36a4afb66, type: 3}
+  - name: walking
+    clip: {fileID: 8300000, guid: 3a2399d88f54ffc4997f1a5494540b68, type: 3}
+  - name: start
+    clip: {fileID: 8300000, guid: 6a23a44e0740e93449623fac4e0cc3c7, type: 3}
+  - name: Wind
+    clip: {fileID: 8300000, guid: b721c27db1b93ec40b8ddee4ed64efa2, type: 3}
+  - name: Wind
+    clip: {fileID: 8300000, guid: b721c27db1b93ec40b8ddee4ed64efa2, type: 3}
+  - name: HAL_01
+    clip: {fileID: 8300000, guid: 84998d7148bedb740b38c06865e7e8e1, type: 3}
+  - name: HAL_02
+    clip: {fileID: 8300000, guid: 1a199f8e26e77254eb52288e08ab20e5, type: 3}
+  - name: HAL_03
+    clip: {fileID: 8300000, guid: 5fa56177c46788743b82b0ce6a2bd8cf, type: 3}
+  - name: HAL_04
+    clip: {fileID: 8300000, guid: 3ad55ab8a9706364f900ed65a4ba1773, type: 3}
+  - name: HAL_05
+    clip: {fileID: 8300000, guid: b2fbd5222608c9346ad7fd695dac57c3, type: 3}
 --- !u!1001 &3492630131529735295
 PrefabInstance:
   m_ObjectHideFlags: 0

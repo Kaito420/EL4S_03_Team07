@@ -135,6 +135,9 @@ public class TurnHandler : MonoBehaviour
         {
             if (pushedKeys[i] == targetKey)
             {
+                // 修正：正しいキーが押された「この瞬間」にだけ鳴らす
+                //AudioManager.instance.PlaySE("keydown");
+
                 // 正しく押されたので状態を true (押されている) に更新
                 _keyStateManager.UpdateKey(_currentPlayer, targetKey, true);
                 Debug.Log($"[プレイヤー {_currentPlayer._id}] が指示キー {targetKey} を押しました！");
@@ -144,6 +147,8 @@ public class TurnHandler : MonoBehaviour
                 StartPlayerMove();
                 // 押せ!!テキストを非表示にする
                 _keyboardViewManager.HidePressText(targetKey);
+
+                //AudioManager.instance.PlaySE("walking");
                 return;
             }
         }
@@ -176,6 +181,7 @@ public class TurnHandler : MonoBehaviour
             // プレイヤーは交代せず、同じプレイヤーに続けて新しいキーを押すよう指示する
             TransitionToSamePlayerPress();
 
+            //AudioManager.instance.PlaySE("keyup");
         }
     }
 
