@@ -8,7 +8,7 @@ public class Test : MonoBehaviour
  
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             int a = IrisTransition.Instance.GetMode();
             //Debug.Log(a);
