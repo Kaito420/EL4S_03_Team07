@@ -5,9 +5,8 @@ using UnityEngine;
 public class BeelMovw : MonoBehaviour
 {
     [SerializeField]
-    private float beelTime = 3.0f;
-    [SerializeField]
-    SceneChange sc;
+    private float beelTime = 6.0f;
+    
 
 
     private float nowTime = 0;
@@ -15,10 +14,10 @@ public class BeelMovw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        nowTime = Time.time;
+        nowTime += 1.0f / 60.0f;
         if(nowTime >= beelTime)
         {
-            sc.SceneChangeManager();
+            IrisTransition.Instance.StartIrisOut();
         }
     }
 }

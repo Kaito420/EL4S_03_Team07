@@ -25,12 +25,11 @@ public class SceneChange : MonoBehaviour
 
     private void Start()
     {
-        if(sceneName != "Title")
-        {
+       
             //シーン開始時にIrisInを動かす
             IrisTransition.Instance.StartIrisIn();
             Debug.Log("イン");
-        }
+       
        
     }
 
