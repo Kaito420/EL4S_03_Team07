@@ -74,6 +74,7 @@ public class IrisTransition : MonoBehaviour
             if (t >= 1f)
             {
                 m_isPlaying = false;
+                m_mode = IrisMode.None;
             }
         }
 
@@ -89,6 +90,7 @@ public class IrisTransition : MonoBehaviour
             if (t >= 1.0f)
             {
                 m_isPlaying = false;
+                m_mode = IrisMode.None;
 
                 m_irisMaterial.SetFloat("_Radius", 0f);
                 StartCoroutine(ChangeScene());
@@ -117,5 +119,20 @@ public class IrisTransition : MonoBehaviour
         m_irisMaterial.SetFloat(
             "_Radius",
             1f);
+    }
+
+    public int GetMode()
+    {
+        if(m_mode == IrisMode.IrisOut)
+        {
+            return 0;
+        }
+        else if(m_mode ==IrisMode.IrisIn)
+        {
+            return 1;
+        }
+
+        return 2;
+        
     }
 }
