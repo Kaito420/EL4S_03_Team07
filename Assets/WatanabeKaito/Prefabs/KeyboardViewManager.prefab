@@ -667,6 +667,7 @@ MonoBehaviour:
   - {fileID: 8182478412420660203}
   - {fileID: 5306235650220633580}
   - {fileID: 5991933254764355687}
+  m_crossImage: {fileID: 4364808012428512700, guid: dde1d75a220dca244a8294e0f5ddc267, type: 3}
 --- !u!1 &2592171676723688310
 GameObject:
   m_ObjectHideFlags: 0

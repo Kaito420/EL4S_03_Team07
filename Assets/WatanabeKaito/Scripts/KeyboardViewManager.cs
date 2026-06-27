@@ -11,6 +11,9 @@ public class KeyboardViewManager : MonoBehaviour
     [Header("右プレイヤーのキー表示リスト")]
     [SerializeField] private List<Text> m_rightPlayerKeyList = new List<Text>();
 
+    [Header("バツマークのプレハブ")]
+    [SerializeField] private Image m_crossImage;
+
     public enum PlayerType  // プレイヤーの種類を表す列挙型
     {
         Left,
@@ -28,7 +31,7 @@ public class KeyboardViewManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       
     }
 
     // キーボードの指示UIをセットするメソッド
@@ -69,6 +72,23 @@ public class KeyboardViewManager : MonoBehaviour
         {
             m_leftPlayerKeyList[randomIndex].text = key.ToString();
             m_currentPlayerType = PlayerType.Left;
+        }
+    }
+
+    //指定した場所にバツマークを表示するメソッド
+    public void ShowCrossMark(int index, PlayerType playerType)
+    {
+        if (playerType == PlayerType.Left && index >= 0 && index < m_leftPlayerKeyList.Count)
+        {
+            // 左プレイヤーの指定した場所にバツマークを表示
+            GameObject cross = Instantiate(m_crossImage.gameObject, m_leftPlayerKeyList[index].transform);
+            cross.transform.localPosition = Vector3.zero; // バツマークをテキストの中央に配置
+        }
+        else if (playerType == PlayerType.Right && index >= 0 && index < m_rightPlayerKeyList.Count)
+        {
+            // 右プレイヤーの指定した場所にバツマークを表示
+            GameObject cross = Instantiate(m_crossImage.gameObject, m_rightPlayerKeyList[index].transform);
+            cross.transform.localPosition = Vector3.zero; // バツマークをテキストの中央に配置
         }
     }
 }
