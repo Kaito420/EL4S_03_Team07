@@ -144,7 +144,7 @@ public class TurnHandler : MonoBehaviour
 
                 ScoreManager.Instance.AddScore(1);
                 TransitionToPlayerChange();
-
+                ScoreManager.Instance.AddScore(1); // スコアを加算
                 StartPlayerMove();
                 // 押せ!!テキストを非表示にする
                 _keyboardViewManager.HidePressText(targetKey);
